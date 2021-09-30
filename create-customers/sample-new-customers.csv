@@ -1,0 +1,5 @@
+﻿name,address,email:1,email:2,email:3,phone:1,phone:2,phone:3,customAttribute:attr1,customAttribute:attr2,customAttribute:attr3
+First1 Last1,"Address 1, CA, 12345",person1@person.com,,,650 123 4567,650 123 4571,,hello,,world
+First2 Last2,"Address 2, CA, 12345",person2@person.com,,,650 123 4568,,,,world,
+FIrst3 Last3,"Address 3, CA, 12345",person3@person.com,person3+1@person.com,person3+2@person.com,650 123 4569,,,,,hi
+First4 Last4,"Address 4, CA, 12345",person4@person.com,,,650 123 4570,,,,world,

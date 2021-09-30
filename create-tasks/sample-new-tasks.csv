@@ -1,0 +1,6 @@
+﻿email,task,dueAt,inboxName,agentEmail
+person1@person.com,please create a return label,2023-09-28T00:00:00.000Z,Warranties & Returns,gladlyadmin@support-test-eliza.gladly.com
+person2@person.com,please initiate a return,2024-09-28T00:00:00.000Z,Warranties & Returns,
+person3@person.com,please process return,2023-09-28T00:00:00.000Z,,
+person3@person.com,please print a return slip,2023-09-28T00:00:00.000Z,,gladlyadmin@gladly.com
+person4@person.com,please print a return slip,2023-09-28T00:00:00.000Z,inbox name,gladlyadmin@gladly.com
