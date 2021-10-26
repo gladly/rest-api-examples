@@ -225,12 +225,14 @@ This script adds a topic to conversations in Gladly, and then closes them utiliz
 
 The script accomplishes this by doing the following:
 - Retrieves the conversation from Gladly using the [Get Conversation API](https://developer.gladly.com/rest/#operation/getConversation)
-- Add a topic to the conversation, as defined in the CSV file, using the [Add Topic API](https://developer.gladly.com/rest/#operation/addTopicToConversation)
-- Close the conversation, assigning it to the conversationId and agentId values the conversation is currently assigned to using the [Update Conversation API](https://developer.gladly.com/rest/#operation/patchConversation)
+- Adds a topic to the conversation, as defined in the CSV file, using the [Add Topic API](https://developer.gladly.com/rest/#operation/addTopicToConversation)
+- Closes the conversation, assigning it to the conversationId and agentId values the conversation is currently assigned to using the [Update Conversation API](https://developer.gladly.com/rest/#operation/patchConversation)
 
 ### How to use script
 
 First, open up `close-conversations/sample-close-conversations.csv` and populate it with conversation + topic ID values from your very own Gladly instance.
+
+Save your edits to this file.
 
 Make sure you are in the root directory of this repository on Terminal, then run this command:
 

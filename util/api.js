@@ -47,14 +47,15 @@ module.exports.getFile = function(id, file, localPath) {
   return gladlyFileDownload('GET', `/api/v1/export/jobs/${id}/files/${file}`, localPath);
 }
 
+//https://developer.gladly.com/rest/#tag/Reports/paths/~1api~1v1~1reports/post
 module.exports.generateReport = function(payload) {
   return gladlyApiRequest('POST', '/api/v1/reports', payload);
 }
 
+//https://developer.gladly.com/rest/#tag/Reports/paths/~1api~1v1~1reports~1work-session-events/post
 module.exports.generateWorkSessionReport = function(payload) {
   return gladlyApiRequest('POST', '/api/v1/reports/work-session-events', payload);
 }
-
 
 //https://developer.gladly.com/rest/#operation/addTopicToConversation
 module.exports.addTopics = function(conversationId, payload) {
@@ -66,7 +67,7 @@ module.exports.updateConversation = function(id, conversationObject) {
   return gladlyApiRequest('PATCH', `/api/v1/conversations/${id}`, conversationObject);
 }
 
-//https://developer.gladly.com/rest/#operation/patchConversation
+//https://developer.gladly.com/rest/#operation/getConversation
 module.exports.getConversation = function(id) {
   return gladlyApiRequest('GET', `/api/v1/conversations/${id}`);
 }
