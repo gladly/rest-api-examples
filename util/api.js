@@ -54,3 +54,19 @@ module.exports.generateReport = function(payload) {
 module.exports.generateWorkSessionReport = function(payload) {
   return gladlyApiRequest('POST', '/api/v1/reports/work-session-events', payload);
 }
+
+
+//https://developer.gladly.com/rest/#operation/addTopicToConversation
+module.exports.addTopics = function(conversationId, payload) {
+  return gladlyApiRequest('POST', `/api/v1/conversations/${conversationId}/topics`, payload);
+}
+
+//https://developer.gladly.com/rest/#operation/patchConversation
+module.exports.updateConversation = function(id, conversationObject) {
+  return gladlyApiRequest('PATCH', `/api/v1/conversations/${id}`, conversationObject);
+}
+
+//https://developer.gladly.com/rest/#operation/patchConversation
+module.exports.getConversation = function(id) {
+  return gladlyApiRequest('GET', `/api/v1/conversations/${id}`);
+}
