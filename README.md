@@ -216,3 +216,36 @@ Detected 35.529 of work session handle time for contacts ended between 2021-09-2
 Detected 0 EMAIL contact(s) created on 09/28/21 America/Los_Angeles timezone. Used payload {"metricSet":"ContactExportReport","timezone":"America/Los_Angeles","startAt":"2021-09-28","endAt":"2021-09-28"}
 Detected 1 agent logged in event(s) on 09/28/21 America/Los_Angeles timezone. Used payload {"metricSet":"AgentTimestampsReport","timezone":"America/Los_Angeles","startAt":"2021-09-28","endAt":"2021-09-28","filters":{}}
 ```
+
+## Close Conversations
+
+### What this script does
+
+This script adds a topic to conversations in Gladly, and then closes them utilizing a CSV file in `close-conversations/sample-close-conversations.csv`.
+
+The script accomplishes this by doing the following:
+- Retrieves the conversation from Gladly using the [Get Conversation API](https://developer.gladly.com/rest/#operation/getConversation)
+- Adds a topic to the conversation, as defined in the CSV file, using the [Add Topic API](https://developer.gladly.com/rest/#operation/addTopicToConversation)
+- Closes the conversation, assigning it to the conversationId and agentId values the conversation is currently assigned to using the [Update Conversation API](https://developer.gladly.com/rest/#operation/patchConversation)
+
+### How to use script
+
+First, open up `close-conversations/sample-close-conversations.csv` and populate it with conversation + topic ID values from your very own Gladly instance.
+
+Save your edits to this file.
+
+Make sure you are in the root directory of this repository on Terminal, then run this command:
+
+`node close-conversations`
+
+### Sample console logs from script
+
+```
+Starting API calls
+
+
+SUCCESS - ROW 0: Closed conversation ID pzQgtVEsSsWho4qm1086WA
+
+
+Finished processing file
+```
