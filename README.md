@@ -249,3 +249,62 @@ SUCCESS - ROW 0: Closed conversation ID pzQgtVEsSsWho4qm1086WA
 
 Finished processing file
 ```
+
+## Events WFM
+
+### What this script does
+
+This script uses the Events API to calculate Voice availability time and agent-initiated hold time on an agent-by-agent basis within 30 minute intervals. The script does this by calling the [Events API](https://developer.gladly.com/rest/#tag/Events/paths/~1api~1v1~1events/get) and retrieving events for `CONTACT` and `AGENT_AVAILABILITY`.
+
+### How to use script
+
+Make sure you are in the root directory of this repository on Terminal, then run this command:
+
+`node events-wfm`
+
+### Sample console logs from script
+
+```
+Voice: Hold Time
+[
+  {
+    'Agent ID': 'agent---',
+    'Interval Start At': '2021-11-09 05:00',
+    Timezone: 'America/Los_Angeles',
+    'Interval Duration (minute)': 30,
+    'Agent Initiated Hold Time (minutes)': 6.033333333333333
+  },
+  {
+    'Agent ID': 'agent2---',
+    'Interval Start At': '2021-11-09 05:00',
+    Timezone: 'America/Los_Angeles',
+    'Interval Duration (minute)': 30,
+    'Agent Initiated Hold Time (minutes)': 4.566666666666666
+  }
+]
+
+Voice: Hold Time
+[
+  {
+    'Agent ID': 'agent---',
+    'Interval Start At': '2021-11-09 05:00',
+    Timezone: 'America/Los_Angeles',
+    'Interval Duration (minute)': 30,
+    'Agent Initiated Hold Time (minutes)': 6.033333333333333
+  },
+  {
+    'Agent ID': 'agent2---',
+    'Interval Start At': '2021-11-09 05:00',
+    Timezone: 'America/Los_Angeles',
+    'Interval Duration (minute)': 30,
+    'Agent Initiated Hold Time (minutes)': 4.566666666666666
+  },
+  {
+    'Agent ID': 'agent3---',
+    'Interval Start At': '2021-11-09 05:00',
+    Timezone: 'America/Los_Angeles',
+    'Interval Duration (minute)': 30,
+    'Agent Initiated Hold Time (minutes)': 1.2999999999999998
+  }
+]
+```
