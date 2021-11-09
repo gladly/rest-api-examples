@@ -19,16 +19,65 @@ getAgentEvents(startAt, endAt, ['CONTACT', 'AGENT_AVAILABILITY'], saveToFileName
 .then(() => {
   let holdTimeIntervalsByAgentId = generateHoldEvents(saveToFileName);
   let availabilityForVoice = generateAgentAvailabilityForChannel(saveToFileName, 'VOICE');
+  let outboundCallsCreated = generateOutboundContactCreatedForChannel(saveToFileName, 'PHONE_CALL');
 
   console.log('Voice: Availability');
   console.log(availabilityForVoice);
 
   console.log('Voice: Hold Time');
   console.log(holdTimeIntervalsByAgentId);
+
+  console.log('PHONE_CALL: Outbound Created');
+  console.log(outboundCallsCreated);
 })
 .catch((e) => {
   console.log(e);
 })
+
+function generateOutboundContactCreatedForChannel(rawEventsFile, channel) {
+  let agentRawReport = {};
+
+  const liner = new lineByLine(rawEventsFile);
+  let rawEventLine;
+
+  while(rawEventLine = liner.next()) {
+    rawEventLine = rawEventLine.toString();
+    let e = JSON.parse(rawEventLine);
+
+    if(e.type == 'CONTACT/STARTED' && e.initiator && e.initiator.type == 'AGENT' && e.content && e.content.channel == channel) {
+      //This is the start interval (round down to closest TIME_BUCKET_IN_MINUTES min)
+      const contactStartedTimestamp = moment(e.timestamp).unix();
+      const startAtMinuteRemainder = moment(e.timestamp).minute() % TIME_BUCKET_IN_MINUTES;
+      const startAtSecond = moment(e.timestamp).second();
+      const startAtInterval = contactStartedTimestamp - startAtMinuteRemainder*60 - startAtSecond;
+      const thisAgentId = e.initiator.id;
+
+      let niceFormatIntervalStartAtIdentifier = moment.unix(startAtInterval).tz(TIMEZONE).format('YYYY-MM-DD HH:mm');
+
+      let agentRawReportRowIdentifier = `${thisAgentId}-${niceFormatIntervalStartAtIdentifier}-${channel}`;
+
+      if(typeof agentRawReport[agentRawReportRowIdentifier] === 'undefined') {
+        agentRawReport[agentRawReportRowIdentifier] = {
+          'Agent ID': thisAgentId,
+          'Interval Start At': niceFormatIntervalStartAtIdentifier,
+          'Timezone': TIMEZONE,
+          'Interval Duration (minute)': TIME_BUCKET_IN_MINUTES,
+          'Contacts Created': 0,
+          'Channel': channel
+        }
+      }
+
+      agentRawReport[agentRawReportRowIdentifier]['Contacts Created']++;
+    }
+  }
+
+  let ret = [];
+  for(i in agentRawReport) {
+    ret.push(agentRawReport[i]);
+  }
+
+  return ret;
+}
 
 //This function will not correctly calculate availabiltiy time if the first availability update the agent performs
 //does not appear in the Events API response
@@ -46,7 +95,6 @@ function generateAgentAvailabilityForChannel(rawEventsFile, channel) {
   while(rawEventLine = liner.next()) {
     rawEventLine = rawEventLine.toString();
     let e = JSON.parse(rawEventLine);
-    let thisTimestamp = moment(e).unix();
 
     //Only analyze channel (one of: PHONE, MAIL, MESSAGING)
     //availableFor is an Array of channels the Agent is available for
@@ -148,7 +196,6 @@ function generateHoldEvents(rawEventsFile) {
   while(rawEventLine = liner.next()) {
     rawEventLine = rawEventLine.toString();
     let e = JSON.parse(rawEventLine);
-    let thisTimestamp = moment(e).unix();
 
     //We're looking at holds that were initiated by an agent
     if(e.type == 'CONTACT/HOLD_STARTED' && e.initiator && e.initiator.type == 'AGENT') {
