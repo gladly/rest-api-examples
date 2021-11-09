@@ -256,6 +256,8 @@ Finished processing file
 
 This script uses the Events API to calculate Voice availability time and agent-initiated hold time on an agent-by-agent basis within 30 minute intervals. The script does this by calling the [Events API](https://developer.gladly.com/rest/#tag/Events/paths/~1api~1v1~1events/get) and retrieving events for `CONTACT` and `AGENT_AVAILABILITY`.
 
+The script will output the duration of time (in minutes) that an Agent spent on hold & available for voice, sorted into 30 minute buckets. 
+
 ### How to use script
 
 Make sure you are in the root directory of this repository on Terminal, then run this command:

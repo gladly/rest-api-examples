@@ -30,13 +30,13 @@ getAgentEvents(startAt, endAt, ['CONTACT', 'AGENT_AVAILABILITY'], saveToFileName
   console.log(e);
 })
 
-//This function works with the exception of when the first Agent Availability event
-//Does not appear in the Agent Events API response
-//For example, if we pull the Agent Events API from 00:00 - 00:30
-//And the agent went available at 11:59 PM the day before
-//We would never know the agent was available for chat during the 00:00 - 00:30 interval
+//This function will not correctly calculate availabiltiy time if the first availability update the agent performs
+//does not appear in the Events API response
+//For example, if we pull the Events API from 00:00 - 00:30
+//And the agent went available for MESSAGING at 11:59 PM the day before
+//We would never know the agent was available for MESSAGING during the 00:00 - 00:30 interval
 //To combat this, we always pull raw event from 00:00 (start of the day) up until ending interval
-//This Agent Events API will ALWAYS return by timestamp ASC, hence there is no need to write extra code to sort
+//This Events API will ALWAYS return by timestamp ASC, hence there is no need to write extra code to sort
 function generateAgentAvailabilityForChannel(rawEventsFile, channel) {
   let agentRawReport = {};
 
@@ -60,7 +60,7 @@ function generateAgentAvailabilityForChannel(rawEventsFile, channel) {
       const liner2 = new lineByLine(rawEventsFile);
       let rawEventLine2;
 
-      //TODO: This is inefficient
+      //NOTE: This is inefficient
       while(!foundNextEvent && (rawEventLine2 = liner2.next())) {
         rawEventLine2 = rawEventLine2.toString();
         let e2 = JSON.parse(rawEventLine2);
@@ -132,13 +132,13 @@ function generateAgentAvailabilityForChannel(rawEventsFile, channel) {
   return ret;
 }
 
-//This function works with the exception of when the first Hold event for the agent
-//Does not appear in the Agent Events API response
-//For example, if we pull the Agent Events API from 00:00 - 00:30
+//This function will not correctly calculate hold time if the first CONTACT/HOLD_STARTED action the agent performs
+//does not appear in the Events API response
+//For example, if we pull the Events API from 00:00 - 00:30
 //And the agent went on hold at 11:59 PM the day before
 //We would never know the agent was on hold during the 00:00 - 00:30 interval
 //To combat this, we always pull raw event from 00:00 (start of the day) up until ending interval
-//This Agent Events API will ALWAYS return by timestamp ASC, hence there is no need to write extra code to sort
+//This Events API will ALWAYS return by timestamp ASC, hence there is no need to write extra code to sort
 function generateHoldEvents(rawEventsFile) {
   let agentRawReport = {};
 
@@ -162,7 +162,7 @@ function generateHoldEvents(rawEventsFile) {
       const liner2 = new lineByLine(rawEventsFile);
       let rawEventLine2;
 
-      //TODO: This is inefficient
+      //NOTE: This is inefficient
       while(!foundNextEvent && (rawEventLine2 = liner2.next())) {
         rawEventLine2 = rawEventLine2.toString();
         let e2 = JSON.parse(rawEventLine2);
