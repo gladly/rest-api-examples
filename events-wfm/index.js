@@ -17,14 +17,14 @@ const saveToFileName = `/tmp/${slugid.nice()}.jsonl`;
 
 getAgentEvents(startAt, endAt, ['CONTACT', 'AGENT_AVAILABILITY'], saveToFileName)
 .then(() => {
-  //let holdTimeIntervalsByAgentId = generateHoldEvents(saveToFileName);
+  let holdTimeIntervalsByAgentId = generateHoldEvents(saveToFileName);
   let availabilityForVoice = generateAgentAvailabilityForChannel(saveToFileName, 'VOICE');
 
   console.log('Voice: Availability');
   console.log(availabilityForVoice);
 
-  /* console.log('Voice: Hold Time');
-  console.log(holdTimeIntervalsByAgentId); */
+  console.log('Voice: Hold Time');
+  console.log(holdTimeIntervalsByAgentId);
 })
 .catch((e) => {
   console.log(e);
