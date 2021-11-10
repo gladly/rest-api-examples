@@ -1,4 +1,4 @@
-const { gladlyApiRequest, gladlyFileDownload } = require('./api-request');
+const { gladlyApiRequest, gladlyFileDownload, gladlyApiRequestSaveToFile } = require('./api-request');
 
 //https://developer.gladly.com/rest/#operation/createCustomer
 module.exports.getCustomerById = function(id) {
@@ -70,4 +70,9 @@ module.exports.updateConversation = function(id, conversationObject) {
 //https://developer.gladly.com/rest/#operation/getConversation
 module.exports.getConversation = function(id) {
   return gladlyApiRequest('GET', `/api/v1/conversations/${id}`);
+}
+
+module.exports.getAgentEvents = function(startAtTime, endAtTime, entities, saveToFileName) {
+  entities = `&entities=${entities.join('&entities=')}`;
+  return gladlyApiRequestSaveToFile('GET', `/api/v1/events?startAt=${startAtTime}&endAt=${endAtTime}${entities}`, null, saveToFileName);
 }
