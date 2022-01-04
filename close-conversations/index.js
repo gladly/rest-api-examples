@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const csv = require('csvtojson');
 const slugid = require('slugid');
-const { getConversation, updateConversation, addTopics } = require('../util/api');
+const { getConversation, updateConversation, addTopics, listAgents } = require('../util/api');
 
 //Keep note of rate limits: https://developer.gladly.com/rest/#section/Default-Rate-Limit
 const queue = require('queue');
@@ -11,8 +11,14 @@ let q = new queue({
 });
 
 //Load CSV file
-csv().fromFile(`${__dirname}/sample-close-conversations.csv`)
-.then((rows) => {
+Promise.all([
+  csv().fromFile(`${__dirname}/sample-close-conversations.csv`),
+  listAgents()
+])
+.then((promiseResults) => {
+  let rows = promiseResults[0];
+  let agents = promiseResults[1];
+
   for(let rowIdx in rows) {
     let row = rows[rowIdx];
 
@@ -27,10 +33,17 @@ csv().fromFile(`${__dirname}/sample-close-conversations.csv`)
           "topicIds": [ row['topicId'] ]
         })
         .then(() => {
+          let isValidAgent = false;
+          for(let agent in agents) {
+            if(agent.id == thisConversation.agentId) {
+              isValidAgent = true;
+            }
+          }
+
           updateConversation(thisConversation.id, {
             "assignee": {
               "inboxId": thisConversation.inboxId, //stay assigned to the same inbox the conversation is currently in
-              "agentId": thisConversation.agentId //stay assigned to the same agent the conversation is currently assigned to
+              "agentId": isValidAgent ? thisConversation.agentId : null //stay assigned to the same agent the conversation is currently assigned to, unless agent is deactivated
             },
             "status": {
               "value": "CLOSED", //close the conversation
