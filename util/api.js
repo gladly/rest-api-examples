@@ -20,9 +20,24 @@ module.exports.updateCustomer = function(customerObject) {
   return gladlyApiRequest('PATCH', `/api/v1/customer-profiles/${customerObject.id}`, customerObject);
 }
 
+//https://developer.gladly.com/rest/#operation/redactContent
+module.exports.redactConversationItem = function(id) {
+  return gladlyApiRequest('POST', `/api/v1/conversation-items/${id}/redact`);
+}
+
+//https://developer.gladly.com/rest/#operation/getConversationItems
+module.exports.getConversationItems = function(id) {
+  return gladlyApiRequest('GET', `/api/v1/conversations/${id}/items`);
+}
+
 //https://developer.gladly.com/rest/#operation/createTaskAndCustomer
 module.exports.createTask = function(taskObject) {
   return gladlyApiRequest('POST', `/api/v1/tasks`, taskObject);
+}
+
+//https://developer.gladly.com/rest/#operation/createTask
+module.exports.createTaskForCustomer = function(customerId, taskObject) {
+  return gladlyApiRequest('POST', `/api/v1/customers/${customerId}/tasks`, taskObject);
 }
 
 //https://developer.gladly.com/rest/#operation/getInboxes
