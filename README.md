@@ -337,7 +337,7 @@ PHONE_CALL: Outbound Created
 This script calls the [Redact Conversation Item API](https://developer.gladly.com/rest/#operation/redactContent) and will redact all conversation items listed in the sample-redact-calls.csv
 
 ### How to use script
-You can get a list of calls you want to delete by filtering by the voice channel and downloading the [contact export report](https://connect.gladly.com/docs/help-documentation/article/contact-export-v2/). Copy and paste the values from the Contact IDcolumn into the sample-redact-calls.csv
+You can get a list of calls you want to redact by filtering by the voice channel and downloading the [contact export report](https://connect.gladly.com/docs/help-documentation/article/contact-export-v2/). Copy and paste the values from the Contact ID column into the sample-redact-calls.csv
 
 Once the csv is complete, make sure you are in the root directory of this repository on Terminal, then run this command:
 
