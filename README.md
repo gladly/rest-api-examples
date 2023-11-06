@@ -18,6 +18,9 @@ Set the following:
 - `GLADLY_HOST`: Set this to your Gladly URL (e.g.: https://sandbox.gladly.qa), making sure to not have an ending `/` at the end and including the `https://` protocol at the beginning
 - `GLADLY_USERNAME`: Your Gladly developer email address (e.g.: gladlyadmin@gladly.com)
 - `GLADLY_API_TOKEN`: The API token that you generated in Step 1
+- `TMP_FILE_PATH`: If using conversation-export-to-csv, set this to `/tmp/` - this is where the results CSV file will be saved
+- `FILE_TYPE`: If using conversation-export-to-csv, set this to one of agents, customers, conversation_items or topics (i.e.: file type from GET File API that will be transformed into CSV)
+- `JOB_ID`: If using conversation-export-to-csv, set this to the Export Job ID you want to transform into a CSV file
 
 Save the file
 
@@ -354,3 +357,20 @@ SUCCESS - ROW 1: redacted conversation efg456shQuGslmWmDXjifw
 SUCCESS - ROW 2: redacted conversation hji789shQuGslmWmDXjifw
 ```
 
+## Conversation Export to CSV
+
+### What this script does
+
+This script calls the [Gladly Get File API](https://developer.gladly.com/rest/#operation/getFile) and transforms the job ID and file type of your choice into a CSV file.
+
+### How to use script
+
+Make sure you are in the root directory of this repository on Terminal, then run this command:
+
+`node conversation-export-to-csv`
+
+### Sample console logs from script
+
+```
+Saved file results in /tmp/lgShP1wsTNyrdH5YVi9BFg-agents.csv
+```
