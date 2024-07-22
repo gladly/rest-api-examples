@@ -374,3 +374,41 @@ Make sure you are in the root directory of this repository on Terminal, then run
 ```
 Saved file results in /tmp/lgShP1wsTNyrdH5YVi9BFg-agents.csv
 ```
+
+
+## Add And Update Answers
+
+### What this script does
+
+This script adds / updates public Answers in Gladly by doing the following: 
+- Loads a CSV called `answers.csv`
+- Calls [List Audiences](https://developer.gladly.com/rest/#operation/getAudiences) API to get list of Audiences and their IDs
+- For each row: 
+  - Call [Add Answer API](https://developer.gladly.com/rest/#operation/addAnswer) to create an Answer container, using list of audiences above to map the row's list of audience names to their actual IDs in Gladly. If Audience name does not exist, ignore the error. 
+  - If above API call fails due to a 409 error
+    - Get the ID from the API response for the duplicate Answer
+    - Call [Update Answer API](https://developer.gladly.com/rest/#operation/updateAnswer) to update the Answer container
+    - Proceed with the rest
+  - Call [Add or Update Answer Content API](https://developer.gladly.com/rest/#operation/addAnswerContentByLanguageAndType) to add / update Public Answer content
+
+### How to use script
+Set up the following Audiences in Gladly: 
+- Audience 1
+- Audience 2
+
+Set up the following Languages in Gladly: 
+- English - United States	
+- French - Canada
+
+`node add-and-update-answers`
+
+### Sample console logs from script
+
+```
+Starting API calls
+
+
+0,How to: Say Hello,,add,_sKRhTfySU2VGCHjmWU8vw
+1,How to: Say Hello,,update,_sKRhTfySU2VGCHjmWU8vw
+2,How to: Say Goodbye,,add,hUx7Cdt-RReT_RsnXG_-kQ
+```

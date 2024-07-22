@@ -91,3 +91,43 @@ module.exports.getAgentEvents = function(startAtTime, endAtTime, entities, saveT
   entities = `&entities=${entities.join('&entities=')}`;
   return gladlyApiRequestSaveToFile('GET', `/api/v1/events?startAt=${startAtTime}&endAt=${endAtTime}${entities}`, null, saveToFileName);
 }
+
+//https://developer.gladly.com/rest/#operation/addAnswer
+module.exports.addAnswer = function(payload) {
+  return gladlyApiRequest('POST', `/api/v1/answers`, payload);
+}
+
+//https://developer.gladly.com/rest/#operation/getAnswer
+module.exports.getAnswer = function(answerId) {
+  return gladlyApiRequest('GET', `/api/v1/answers/${answerId}`);
+}
+
+//https://developer.gladly.com/rest/#operation/getAnswerContentByLanguageAndType
+module.exports.getAnswerContentByLanguageAndType = function(answerId, language, type) {
+  return gladlyApiRequest('GET', `/api/v1/answers/${answerId}/languages/${language}/type/${type}`);
+}
+
+//https://developer.gladly.com/rest/#operation/updateAnswer
+module.exports.updateAnswer = function(answerId, payload) {
+  return gladlyApiRequest('PATCH', `/api/v1/answers/${answerId}`, payload);
+}
+
+//https://developer.gladly.com/rest/#operation/addAnswerContentByLanguageAndType
+module.exports.addOrUpdateAnswerContent = function(answerId, language, type, payload) {
+  return gladlyApiRequest('PUT', `/api/v1/answers/${answerId}/languages/${language}/type/${type}`, payload);
+}
+
+//https://developer.gladly.com/rest/#operation/deleteAnswer
+module.exports.deleteAnswer = function(answerId) {
+  return gladlyApiRequest('DELETE', `/api/v1/answers/${answerId}`);
+}
+
+//https://developer.gladly.com/rest/#operation/deleteAnswerContentByLanguageAndType
+module.exports.deleteAnswerContent = function(answerId, language, type) {
+  return gladlyApiRequest('DELETE', `/api/v1/answers/${answerId}`);
+}
+
+//https://developer.gladly.com/rest/#operation/getAudiences
+module.exports.listAudiences = function() {
+  return gladlyApiRequest('GET', `/api/v1/audiences`);
+}
