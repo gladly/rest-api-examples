@@ -22,7 +22,7 @@ module.exports.updateCustomer = function(customerObject) {
 
 //https://developer.gladly.com/rest/#operation/deleteCustomer
 module.exports.deleteCustomer = function (customerId) {
-  return gladlyApiRequest("DELETE", `/api/v1/customer-profiles/${customerId}`);
+  return gladlyApiRequest('DELETE', `/api/v1/customer-profiles/${customerId}`);
 };
 
 //https://developer.gladly.com/rest/#operation/redactContent

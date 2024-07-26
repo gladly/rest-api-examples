@@ -1,10 +1,10 @@
-require("dotenv").config();
+require('dotenv').config();
 
-const csv = require("csvtojson");
-const { findCustomer, deleteCustomer } = require("../util/api");
+const csv = require('csvtojson');
+const { findCustomer, deleteCustomer } = require('../util/api');
 
 //Keep note of rate limits: https://developer.gladly.com/rest/#section/Default-Rate-Limit
-const queue = require("queue");
+const queue = require('queue');
 const q = new queue({
   concurrency: 5,
 });
@@ -17,7 +17,7 @@ csv()
       const row = rows[rowIdx];
 
       q.push((cb) => {
-        findCustomer(row.email, "email") //can also be looked up with phone number, e.g. `findCustomer(row.phone, "phoneNumber")`
+        findCustomer(row.email, 'email') //can also be looked up with phone number, e.g. `findCustomer(row.phone, "phoneNumber")`
           .then((matches) => {
             matches = matches.data;
 
