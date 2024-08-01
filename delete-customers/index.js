@@ -11,7 +11,7 @@ const q = new queue({
 
 //Load CSV file
 csv()
-  .fromFile(`${__dirname}/sample-new-customers.csv`)
+  .fromFile(`${__dirname}/sample-customers-to-delete.csv`)
   .then((rows) => {
     for (const rowIdx in rows) {
       const row = rows[rowIdx];
