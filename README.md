@@ -185,8 +185,6 @@ When a profile is successfully deleted, the script will log the success using `c
 
 When a profile fails to be deleted, the script will log the error using `console.log`, along with the HTTP status code received.
 
-The resultant profile looks something like this:
-
 ### How to use script
 
 Make sure you are in the root directory of this repository on Terminal, then run this command:
