@@ -61,7 +61,6 @@ listAudiences()
         });
       }).catch((e) => {
         if(e.response.data.errors[0].code == 'taken') {
-          //TODO: Replace this with upcoming duplicate ID placement
           let actualAnswerId = e.response.data.errors[0].meta.existingAnswerId;
 
           updateAnswer(actualAnswerId, {
