@@ -1,0 +1,4 @@
+language,audience,name,description,public_answer_content,public_answer_title
+en-us,Audience 1,How to: Say Hello,How to say hello in any language,<p>Hello World</p>,Hello in English
+Fr-ca,Audience 1,How to: Say Hello,How to say hello in any language,<p>Bonjour</p>,Hello in French
+Fr-ca,"Audience 1, Audience 2",How to: Say Goodbye,How to say goodbye in any language,<p>Au Revoir</p>,Goodbye in French
