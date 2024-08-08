@@ -119,7 +119,6 @@ SUCCESS - ROW 3: Updated customer profile with payload {"address":"Address 4, CA
 SUCCESS - ROW 0: Updated customer profile with payload {"address":"Address 1, CA, 12345","customAttributes":{"attr1":"hello","attr3":"world"},"emails":[{"normalized":"person1@person.com","original":"person1@person.com"}],"name":"Person 1's New Name","phones":[{"normalized":"+16501234567","original":"650 123 4567","regionCode":"US","type":""},{"normalized":"+16501234571","original":"650 123 4571","regionCode":"US","type":""}],"id":"XRJvp8lSS5aD2RucjY5zkw","createdAt":"2021-09-28T21:10:10.262Z"}
 ```
 
-
 ## Create Tasks
 
 We recommend utilizing this script after running the `create-customers` script.
@@ -168,6 +167,41 @@ SUCCESS - ROW 0: Created task with ID ade2kDvwRnaA7ewXYtMyag and payload {"id":"
 
 
 Finished processing file
+```
+
+## Delete Customers
+
+We recommend utilizing this script after running the `create-customers` script.
+
+### What this script does
+
+This script deletes customer profiles in Gladly utilizing a CSV file in `delete-customers/sample-customers-to-delete.csv`.
+
+The script searches for the customer profile in Gladly using the `email` column and the [Gladly Find Customer API](https://developer.gladly.com/rest/#operation/findCustomers). Note that email is considered a unique identifier in Gladly, so if a matching profile is found, there will only be one potential result returned.
+
+If a match is found, the script will then call the [Gladly Delete Customer API](https://developer.gladly.com/rest/#operation/deleteCustomer) to delete the profile in Gladly. Note that this operation is irreversible; deleted customer profiles cannot be restored. Profile deletion will fail if a customer has any open Conversations.
+
+When a profile is successfully deleted, the script will log the success using `console.log`
+
+When a profile fails to be deleted, the script will log the error using `console.log`, along with the HTTP status code received.
+
+### How to use script
+
+Make sure you are in the root directory of this repository on Terminal, then run this command:
+
+`node delete-customers`
+
+### Sample console logs from script
+
+```
+SUCCESS - ROW 3: Found a match for customer with email person4@person.com. Attempting to delete profile
+SUCCESS - ROW 1: Found a match for customer with email person2@person.com. Attempting to delete profile
+SUCCESS - ROW 2: Found a match for customer with email person3@person.com. Attempting to delete profile
+SUCCESS - ROW 0: Found a match for customer with email person1@person.com. Attempting to delete profile
+SUCCESS - ROW 3: Deleted customer profile with id AgSEIR70Spu7g55D31txMg
+SUCCESS - ROW 1: Deleted customer profile with id Vl9N5WwuSXqFsslGtF7Hww
+SUCCESS - ROW 2: Deleted customer profile with id fsXEFNy1QGWhYhRRPJpjOQ
+SUCCESS - ROW 0: Deleted customer profile with id AxfE0TZ_RF6NcxCaiog2mw
 ```
 
 ## Get Data Export

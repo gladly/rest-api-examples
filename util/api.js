@@ -20,6 +20,11 @@ module.exports.updateCustomer = function(customerObject) {
   return gladlyApiRequest('PATCH', `/api/v1/customer-profiles/${customerObject.id}`, customerObject);
 }
 
+//https://developer.gladly.com/rest/#operation/deleteCustomer
+module.exports.deleteCustomer = function (customerId) {
+  return gladlyApiRequest('DELETE', `/api/v1/customer-profiles/${customerId}`);
+};
+
 //https://developer.gladly.com/rest/#operation/redactContent
 module.exports.redactConversationItem = function(id) {
   return gladlyApiRequest('POST', `/api/v1/conversation-items/${id}/redact`);
