@@ -446,3 +446,71 @@ Starting API calls
 1,How to: Say Hello,,update,_sKRhTfySU2VGCHjmWU8vw
 2,How to: Say Goodbye,,add,hUx7Cdt-RReT_RsnXG_-kQ
 ```
+
+## Create Topics
+
+### What this script does
+
+This script creates new Topics in Gladly utilizing a CSV file in `create-topics/sample-new-topics.csv`.
+
+The script transforms each row in the CSV file to a Topic object, pulling the necessary attributes, then uses the [Gladly Add Topic API](https://developer.gladly.com/rest/#operation/addTopic) to create the Topic on Gladly.
+
+When a Topic is successfully created, the script will log the success using `console.log`
+
+When a Topic fails to be created, the script will log the error using `console.log`, along with the HTTP status code received.
+
+#### CSV to Gladly API data mapping logic
+
+The script will loop through each row in the CSV file and import a Topic using the following logic:
+- `id`: this column is mapped to the Topic's id in Gladly (optional)
+- `name`: this column is mapped to the Topic name on Gladly (required)
+- `disabled`: this column is mapped to whether the Topic is active or archived on Gladly. (optional -- defaults to `false`/active on Gladly)
+- `parentId`: this column is mapped to the id of a parent Topic, if creating a nested topic (optional)
+
+A sample payload can be found below:
+```
+{"id":"id4","name":"Wrong Size","disabled":false,"parentId":"id2"}
+```
+
+### How to use script
+
+Make sure you are in the root directory of this repository on Terminal, then run this command:
+
+`node create-topics`
+
+### Sample console logs from script
+
+```
+SUCCESS - ROW 0: Created Topic with ID id1 and payload {"id":"id1","name":"Returns"}
+SUCCESS - ROW 3: Created Topic with ID id4 and payload {"id":"id4","name":"Wrong Size","parentId":"id1"}
+SUCCESS - ROW 1: Created Topic with ID id2 and payload {"id":"id2","name":"Exchanges"}
+SUCCESS - ROW 2: Created Topic with ID id3 and payload {"id":"id3","name":"Loyalty Program (ARCHIVED)","disabled":true}
+```
+
+## Update Customers
+
+We recommend utilizing this script after running the `create-topics` script.
+
+### What this script does
+
+This script updates an organization's Topics in Gladly utilizing a CSV file in `update-topics/sample-update-topics.csv`.
+
+Topics are updated by making a call to the corresponding Topic id, using the [Gladly Update Topic API](https://developer.gladly.com/rest/#operation/updateTopic).
+
+When a Topic is successfully updated, the script will log the success using `console.log`
+
+When a Topic fails to be update, the script will log the error using `console.log`, along with the HTTP status code received.
+
+
+### How to use script
+
+Make sure you are in the root directory of this repository on Terminal, then run this command:
+
+`node update-topics`
+
+### Sample console logs from script
+
+```
+SUCCESS - ROW 0: Updated Topic with ID id3 and payload {"id":"id3","name":"Loyalty Program","disabled":false}
+SUCCESS - ROW 1: Updated Topic with ID id4 and payload {"id":"id4","name":"Wrong Size","parentId":"id2"}
+```
