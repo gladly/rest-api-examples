@@ -1,0 +1,5 @@
+id,name,disabled,parentId
+id1,Returns,false,
+id2,Exchanges,,
+id3,Loyalty Program (ARCHIVED),true,
+id4,Wrong Size,,id1

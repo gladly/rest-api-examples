@@ -136,3 +136,13 @@ module.exports.deleteAnswerContent = function(answerId, language, type) {
 module.exports.listAudiences = function() {
   return gladlyApiRequest('GET', `/api/v1/audiences`);
 }
+
+//https://developer.gladly.com/rest/#operation/addTopic
+module.exports.createTopic = function(payload) {
+  return gladlyApiRequest('POST', `/api/v1/topics`, payload);
+}
+
+//https://developer.gladly.com/rest/#operation/updateTopic
+module.exports.updateTopic = function(topicId, payload) {
+  return gladlyApiRequest('PATCH', `/api/v1/topics/${topicId}`, payload);
+}
