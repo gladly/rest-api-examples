@@ -287,6 +287,38 @@ SUCCESS - ROW 0: Closed conversation ID pzQgtVEsSsWho4qm1086WA
 Finished processing file
 ```
 
+## Close Tasks
+
+### What this script does
+
+This script closes Tasks utilizing a CSV file in `close-tasks/sample-close-tasks.csv`.
+
+The script accomplishes this by doing the following:
+- Retrieves the Task from Gladly using the [Get Task API](https://developer.gladly.com/rest/#operation/getTask)
+- Closes the task, assigning it to the inboxId and agentId values the task is currently assigned to using the [Update Conversation API](https://developer.gladly.com/rest/#operation/patchTask)
+
+### How to use script
+
+First, open up `close-tasks/sample-close-tasks.csv` and populate it with task IDs you wish to close.
+
+Save your edits to this file.
+
+Make sure you are in the root directory of this repository on Terminal, then run this command:
+
+`node close-tasks`
+
+### Sample console logs from script
+
+```
+Starting API calls
+
+
+SUCCESS - ROW 0: Closed task ID pzQgtVEsSsWho4qm1086WA
+
+
+Finished processing file
+```
+
 ## Events WFM
 
 ### What this script does
