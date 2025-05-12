@@ -146,3 +146,13 @@ module.exports.createTopic = function(payload) {
 module.exports.updateTopic = function(topicId, payload) {
   return gladlyApiRequest('PATCH', `/api/v1/topics/${topicId}`, payload);
 }
+
+//https://developer.gladly.com/rest/#operation/updateTask
+module.exports.updateTask = function(taskId, payload) {
+  return gladlyApiRequest('PATCH', `/api/v1/tasks/${taskId}`, payload);
+}
+
+//https://developer.gladly.com/rest/#operation/updateTask
+module.exports.getTask = function(taskId) {
+  return gladlyApiRequest('GET', `/api/v1/tasks/${taskId}`);
+}
