@@ -16,7 +16,7 @@ csv().fromFile(`${__dirname}/sample-close-tasks.csv`)
     let row = rows[rowIdx];
 
     q.push((cb) => {
-      //Retrieve this conversation so that we can get its current inboxId and agentId assignment
+      //Retrieve this Task so that we can get its current inboxId and agentId assignment
       getTask(row['taskId'])
       .then((thisTask) => {
         thisTask = thisTask.data;
@@ -40,7 +40,7 @@ csv().fromFile(`${__dirname}/sample-close-tasks.csv`)
         });
       })
       .catch((e) => {
-        console.log(`ERROR - ROW ${rowIdx}: Could not retrieve conversation ID ${row['taskId']} due to ${JSON.stringify(e.response.data)} and HTTP status code ${e.response.status}`);
+        console.log(`ERROR - ROW ${rowIdx}: Could not retrieve Task ID ${row['taskId']} due to ${JSON.stringify(e.response.data)} and HTTP status code ${e.response.status}`);
 
         cb();
       });
